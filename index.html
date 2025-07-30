@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HobbitTrash AI VTuber - Interactive Overview</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Initial theme setup script to prevent FOUC (Flash of Unstyled Content) -->
-    <script>
-        // Set default to dark mode, but respect user's choice if it exists in localStorage
-        if (localStorage.theme === 'light') {
-            document.documentElement.classList.remove('dark')
-        } else {
-            document.documentElement.classList.add('dark')
-        }
-    </script>
+    <!-- Theme setup is now handled in the script at the end of the body -->
     <!-- Chosen Palette: Warm Neutrals with Purple Accent -->
     <!-- Application Structure Plan: A single-page, top-to-bottom scrolling narrative layout designed to function like a modern product landing page. The structure begins with a high-level hero section, followed by progressively detailed sections for "How It Works," "Key Features," and "Advanced Capabilities" (covering the AI's memory and moderator controls). This structure was chosen to guide the user logically from the core concept to the specific features, using interactivity to make the discovery process more engaging and less passive than a slide deck. -->
     <!-- Visualization & Content Choices: 
@@ -356,48 +348,38 @@
     </footer>
 
     <script>
-        // All interactive scripts are wrapped in a DOMContentLoaded listener
-        // to ensure the elements exist before trying to add event listeners to them.
+        // This single script now handles all interactivity for the page.
+        // It runs after the DOM is fully loaded to prevent errors.
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- THEME TOGGLE LOGIC ---
+            // --- THEME TOGGLE LOGIC (Consolidated & Corrected) ---
             const themeToggleBtn = document.getElementById('theme-toggle');
             const darkIcon = document.getElementById('theme-toggle-dark-icon');
             const lightIcon = document.getElementById('theme-toggle-light-icon');
             const htmlEl = document.documentElement;
-
-            const applyTheme = () => {
-                // This function reads the class from the <html> element
-                // and sets the icon visibility accordingly.
-                if (htmlEl.classList.contains('dark')) {
-                    // Dark mode is active, so the toggle should show the light icon (sun)
-                    darkIcon.classList.add('hidden');
-                    lightIcon.classList.remove('hidden');
-                } else {
-                    // Light mode is active, so the toggle should show the dark icon (moon)
+            const setAndApplyTheme = (theme) => {
+                if (theme === 'light') {
+                    htmlEl.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
                     darkIcon.classList.remove('hidden');
                     lightIcon.classList.add('hidden');
+                } else {
+                    // Default to dark
+                    htmlEl.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
                 }
             };
 
             themeToggleBtn.addEventListener('click', () => {
-                // 1. Toggle the class on the root <html> element
-                htmlEl.classList.toggle('dark');
-
-                // 2. Update localStorage with the new state
-                if (htmlEl.classList.contains('dark')) {
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    localStorage.setItem('theme', 'light');
-                }
-
-                // 3. Update the button icon to reflect the new state
-                applyTheme();
+                const currentTheme = localStorage.getItem('theme') || 'dark';
+                setAndApplyTheme(currentTheme === 'dark' ? 'light' : 'dark');
             });
 
-            // Call applyTheme on initial page load to set the correct icon
-            // based on the class set by the script in the <head>.
-            applyTheme();
+            // Initial theme setup on page load
+            const initialTheme = localStorage.getItem('theme') || 'dark';
+            setAndApplyTheme(initialTheme);
 
 
             // --- FEATURE CARD TOGGLE ---
@@ -406,11 +388,8 @@
                 featuresGrid.addEventListener('click', (e) => {
                     const card = e.target.closest('.feature-card');
                     if (card) {
-                        // Close other active cards
                         featuresGrid.querySelectorAll('.feature-card.active').forEach(activeCard => {
-                            if (activeCard !== card) {
-                                activeCard.classList.remove('active');
-                            }
+                            if (activeCard !== card) activeCard.classList.remove('active');
                         });
                         card.classList.toggle('active');
                     }
@@ -428,19 +407,17 @@
                     { user: 'HobbitAI_Bot', text: '✅ Memo added for SomeChatter.', userColor: 'text-green-400' }
                 ];
 
-                const addLine = (line, delay) => {
-                    return new Promise(resolve => {
-                        setTimeout(() => {
-                            const lineEl = document.createElement('div');
-                            lineEl.className = 'chat-line-item';
-                            lineEl.innerHTML = `<span class="${line.userColor} font-bold">[${line.user}]</span>: ${line.text}`;
-                            chatWindow.appendChild(lineEl);
-                            setTimeout(() => lineEl.style.opacity = '1', 50);
-                            chatWindow.scrollTop = chatWindow.scrollHeight;
-                            resolve();
-                        }, delay);
-                    });
-                };
+                const addLine = (line, delay) => new Promise(resolve => {
+                    setTimeout(() => {
+                        const lineEl = document.createElement('div');
+                        lineEl.className = 'chat-line-item';
+                        lineEl.innerHTML = `<span class="${line.userColor} font-bold">[${line.user}]</span>: ${line.text}`;
+                        chatWindow.appendChild(lineEl);
+                        setTimeout(() => lineEl.style.opacity = '1', 50);
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
+                        resolve();
+                    }, delay);
+                });
 
                 simulateBtn.addEventListener('click', async () => {
                     if (isSimulating) return;
@@ -448,10 +425,8 @@
                     simulateBtn.disabled = true;
                     simulateBtn.classList.add('opacity-50');
                     chatWindow.innerHTML = '';
-                    
                     await addLine(chatSteps[0], 100);
                     await addLine(chatSteps[1], 600);
-                    
                     isSimulating = false;
                     simulateBtn.disabled = false;
                     simulateBtn.classList.remove('opacity-50');
