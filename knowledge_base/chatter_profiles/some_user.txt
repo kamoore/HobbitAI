@@ -1,0 +1,5 @@
+# This file contains long-term memories about a specific chatter.
+# Each memo should be on a new line.
+# For example:
+# - Loves the game Elden Ring.
+# - Has a pet dog named Sparky.

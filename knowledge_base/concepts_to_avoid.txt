@@ -1,0 +1,2 @@
+# This file lists topics or concepts the AI should avoid discussing.
+# Each concept should be on a new line.
