@@ -1,0 +1,23 @@
+# GUI
+customtkinter
+
+# Web Server for OBS Overlay
+Flask
+
+# Twitch Integration
+twitchio
+
+# LLM APIs
+openai
+google-generativeai
+groq
+
+# Text-to-Speech API
+elevenlabs
+
+# HTTP client for internal API calls
+httpx
+
+# Vector Database for RAG (Commented out to save space during initial setup)
+# faiss-cpu
+# sentence-transformers

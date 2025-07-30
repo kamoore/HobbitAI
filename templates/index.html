@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HobbitAI Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            overflow: hidden;
+        }
+        #container {
+            position: relative;
+            width: 300px; /* Example size */
+            height: 400px; /* Example size */
+        }
+        .asset {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* Hidden by default */
+        }
+        .visible {
+            display: block;
+        }
+        /* Fallback styles */
+        #fallback-idle { background-color: #6a8759; }
+        #fallback-speaking { background-color: #b35f8d; }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Image assets -->
+        <img id="img-body" src="/static/body.png" class="asset" alt="Character Body">
+        <img id="img-mouth-closed" src="/static/mouth_closed.png" class="asset" alt="Mouth Closed">
+        <img id="img-mouth-open" src="/static/mouth_open.png" class="asset" alt="Mouth Open">
+
+        <!-- Fallback colored blocks -->
+        <div id="fallback-idle" class="asset"></div>
+        <div id="fallback-speaking" class="asset"></div>
+    </div>
+
+    <script>
+        let useFallback = false;
+        const images = {
+            body: document.getElementById('img-body'),
+            idle: document.getElementById('img-mouth-closed'),
+            speaking: document.getElementById('img-mouth-open')
+        };
+        const fallbacks = {
+            idle: document.getElementById('fallback-idle'),
+            speaking: document.getElementById('fallback-speaking')
+        };
+
+        // Check if images exist. If any primary image fails, switch to fallback mode.
+        const imageSources = [images.body.src, images.idle.src, images.speaking.src];
+        const imagePromises = imageSources.map(src => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(src);
+                img.onerror = () => reject(src);
+            });
+        });
+
+        Promise.all(imagePromises)
+            .then(() => {
+                console.log("All images loaded successfully. Using image assets.");
+                useFallback = false;
+            })
+            .catch((failedSrc) => {
+                console.warn(`Failed to load image: ${failedSrc}. Switching to fallback mode.`);
+                useFallback = true;
+            });
+
+        function setAnimationState(state) {
+            // Hide everything first
+            Object.values(images).forEach(img => img.classList.remove('visible'));
+            Object.values(fallbacks).forEach(fb => fb.classList.remove('visible'));
+
+            if (useFallback) {
+                if (state === 'speaking') {
+                    fallbacks.speaking.classList.add('visible');
+                } else { // 'idle'
+                    fallbacks.idle.classList.add('visible');
+                }
+            } else {
+                images.body.classList.add('visible');
+                if (state === 'speaking') {
+                    images.speaking.classList.add('visible');
+                } else { // 'idle'
+                    images.idle.classList.add('visible');
+                }
+            }
+        }
+
+        // Long polling to get state from the server
+        async function getState() {
+            try {
+                const response = await fetch('/get_state');
+                const data = await response.json();
+                setAnimationState(data.state);
+            } catch (error) {
+                console.error("Failed to get state:", error);
+                setAnimationState('idle'); // Default to idle on error
+            } finally {
+                // Poll again after a short delay
+                setTimeout(getState, 200);
+            }
+        }
+
+        // Initial state check
+        document.addEventListener('DOMContentLoaded', () => {
+            // A small delay to allow image error handlers to fire
+            setTimeout(() => {
+                getState();
+            }, 100);
+        });
+
+    </script>
+</body>
+</html>

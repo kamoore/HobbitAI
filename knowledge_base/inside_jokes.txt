@@ -1,0 +1,2 @@
+# This file contains inside jokes for the AI to reference.
+# Each joke should be on a new line.
