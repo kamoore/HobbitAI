@@ -35,8 +35,8 @@ The application is built on a modular Python architecture:
 
 ### **1\. Clone the Repository**
 
-git clone https://github.com/your-username/hobbittrash-ai-vtuber.git  
-cd hobbittrash-ai-vtuber
+git clone https://github.com/kamoore/HobbitAI.git  
+cd HobbitAI
 
 ### **2\. Install Dependencies**
 
@@ -57,7 +57,7 @@ All settings are managed in the config.ini file. Make a copy of config.example.i
 ## **▶️ Usage**
 
 1. **Run the Application:**  
-   python hobbit\_ai.py
+   python HobbitAI\_ai.py
 
 2. **Use the GUI:** The desktop application window will open. Use the "Start AI" button to connect to Twitch.  
 3. **Add to OBS:**  
