@@ -72,7 +72,7 @@ All settings are managed in the config.ini file. Make a copy of config.example.i
 ## **▶️ Usage**
 
 1. **Run the Application:**  
-   python HobbitAI\_ai.py
+   python hobbit\_ai.py
 
 2. **Use the GUI:** The desktop application window will open. Use the "Start AI" button to connect to Twitch.  
 3. **Add to OBS:**  
