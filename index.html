@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HobbitTrash AI VTuber - Interactive Overview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals with Purple Accent -->
+    <!-- Application Structure Plan: A single-page, top-to-bottom scrolling narrative layout designed to function like a modern product landing page. The structure begins with a high-level hero section, followed by progressively detailed sections for "How It Works," "Key Features," and "Advanced Capabilities" (covering the AI's memory and moderator controls). This structure was chosen to guide the user logically from the core concept to the specific features, using interactivity to make the discovery process more engaging and less passive than a slide deck. -->
+    <!-- Visualization & Content Choices: 
+        - How It Works Flowchart: Report Info (5-step process) -> Goal (Explain flow) -> Viz (Interactive HTML/CSS diagram) -> Interaction (Hover to reveal details) -> Justification (More engaging than static image) -> Method (HTML/CSS/JS).
+        - Key Features: Report Info (6 features) -> Goal (Detail features) -> Viz (Interactive card grid) -> Interaction (Click to expand/reveal more info) -> Justification (Allows users to focus on features that interest them) -> Method (HTML/CSS/JS).
+        - AI's Brain: Report Info (3 memory layers) -> Goal (Explain AI context) -> Viz (Layered card diagram) -> Interaction (Hover effect) -> Justification (Visually separates the concepts for clarity) -> Method (HTML/CSS/JS).
+        - Moderator Powers: Report Info (Chat command examples) -> Goal (Demonstrate control) -> Viz (Live chat mockup) -> Interaction (Click button to simulate command) -> Justification (Interactive demo is more impactful than a static image) -> Method (HTML/CSS/JS).
+        - Live Control UI: Report Info (App screenshot) -> Goal (Show the user interface) -> Viz (Styled HTML/CSS mockup) -> Interaction (Static) -> Justification (Directly shows the product's UI without external images) -> Method (HTML/CSS).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #1c1c1c;
+        }
+        .accent-purple { color: #8B5CF6; }
+        .bg-accent-purple { background-color: #8B5CF6; }
+        .border-accent-purple { border-color: #8B5CF6; }
+        .smooth-scroll { scroll-behavior: smooth; }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #575757;
+        }
+        .flow-step-card {
+            transition: all 0.3s ease;
+        }
+        .flow-step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .feature-card:hover {
+            border-color: #8B5CF6;
+        }
+        .feature-card .feature-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .feature-card.active .feature-detail {
+            max-height: 200px;
+        }
+        .chat-line-item {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="smooth-scroll">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold">HobbitTrash AI</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#how-it-works" class="text-gray-600 hover:text-accent-purple">How It Works</a>
+                <a href="#features" class="text-gray-600 hover:text-accent-purple">Features</a>
+                <a href="#brain" class="text-gray-600 hover:text-accent-purple">The AI's Brain</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    Meet the <span class="accent-purple">HobbitTrash AI</span> VTuber
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    An AI version of Hobbit that lives in her stream. It's a fun, interactive co-host that watches the chat, listens for its name, and talks back in <strong>her actual voice</strong>.
+                </p>
+                <div class="mt-12 text-8xl md:text-9xl drop-shadow-lg">
+                    🤖
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title">How It Works</h2>
+                    <p class="mt-4 section-subtitle max-w-2xl mx-auto">From a chat message to a live response in seconds. Hover over a step to learn more.</p>
+                </div>
+                <div class="mt-16 flex flex-col items-center">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                        <div class="flow-step-card bg-gray-50 p-6 rounded-xl border border-gray-200 w-64">
+                            <div class="text-4xl">💬</div>
+                            <h3 class="mt-4 text-lg font-bold">1. Twitch Chat</h3>
+                            <p class="mt-2 text-sm text-gray-500">A chatter mentions @hobbittrash or uses a channel point redeem.</p>
+                        </div>
+                        <div class="text-2xl text-gray-300">→</div>
+                        <div class="flow-step-card bg-gray-50 p-6 rounded-xl border border-gray-200 w-64">
+                            <div class="text-4xl">👂</div>
+                            <h3 class="mt-4 text-lg font-bold">2. The App Listens</h3>
+                            <p class="mt-2 text-sm text-gray-500">The desktop app catches the trigger and checks cooldowns.</p>
+                        </div>
+                        <div class="text-2xl text-gray-300">→</div>
+                        <div class="flow-step-card bg-gray-50 p-6 rounded-xl border border-gray-200 w-64">
+                            <div class="text-4xl">🧠</div>
+                            <h3 class="mt-4 text-lg font-bold">3. AI Brain Thinks</h3>
+                            <p class="mt-2 text-sm text-gray-500">The AI uses its memory to craft a perfect, in-character response.</p>
+                        </div>
+                    </div>
+                    <div class="h-8 w-px bg-gray-300 my-4 md:rotate-90 md:hidden">↓</div>
+                    <div class="text-4xl text-gray-300 hidden md:block my-4">↓</div>
+                    <div class="flex flex-col-reverse md:flex-row items-center justify-center gap-4 md:gap-8">
+                         <div class="flow-step-card bg-gray-50 p-6 rounded-xl border border-gray-200 w-64">
+                            <div class="text-4xl">😀</div>
+                            <h3 class="mt-4 text-lg font-bold">5. VTuber Animates</h3>
+                            <p class="mt-2 text-sm text-gray-500">The character's mouth moves on stream, synced to the audio.</p>
+                        </div>
+                        <div class="text-2xl text-gray-300">←</div>
+                        <div class="flow-step-card bg-gray-50 p-6 rounded-xl border border-gray-200 w-64">
+                            <div class="text-4xl">🗣️</div>
+                            <h3 class="mt-4 text-lg font-bold">4. AI Speaks</h3>
+                            <p class="mt-2 text-sm text-gray-500">The response is converted to speech using Hobbit's cloned voice.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title">Everything Under Control</h2>
+                    <p class="mt-4 section-subtitle max-w-2xl mx-auto">A powerful toolset designed for the chaos of live streaming. Click each feature to learn more.</p>
+                </div>
+                <div id="features-grid" class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card bg-white p-6 rounded-xl border-2 border-gray-200">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">🎭</div>
+                            <h3 class="text-xl font-bold">Custom Personality</h3>
+                        </div>
+                        <p class="mt-4 text-gray-600 feature-detail">Funny, crass, and 100% Hobbit. The AI is trained on her unique style, opinions, and inside jokes, ensuring every response feels authentic.</p>
+                    </div>
+                    <div class="feature-card bg-white p-6 rounded-xl border-2 border-gray-200">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">🎙️</div>
+                            <h3 class="text-xl font-bold">Perfect Voice Clone</h3>
+                        </div>
+                        <p class="mt-4 text-gray-600 feature-detail">Uses industry-leading tech to sound exactly like the real Hobbit, capturing her tone and inflection for seamless audio.</p>
+                    </div>
+                    <div class="feature-card bg-white p-6 rounded-xl border-2 border-gray-200">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">💾</div>
+                            <h3 class="text-xl font-bold">Smart Memory</h3>
+                        </div>
+                        <p class="mt-4 text-gray-600 feature-detail">Remembers individual chatters, past conversations, and what the chat is talking about right now, making it a true community member.</p>
+                    </div>
+                    <div class="feature-card bg-white p-6 rounded-xl border-2 border-gray-200">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">🧩</div>
+                            <h3 class="text-xl font-bold">Simple OBS Integration</h3>
+                        </div>
+                        <p class="mt-4 text-gray-600 feature-detail">The VTuber animation is served from a local web page. Just add it as a browser source in OBS for a clean, transparent overlay.</p>
+                    </div>
+                    <div class="feature-card bg-white p-6 rounded-xl border-2 border-gray-200">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">🎛️</div>
+                            <h3 class="text-xl font-bold">Live Control App</h3>
+                        </div>
+                        <p class="mt-4 text-gray-600 feature-detail">Hobbit can change settings on the fly with a simple desktop app. Toggle triggers, adjust cooldowns, and more with a single click.</p>
+                    </div>
+                    <div class="feature-card bg-white p-6 rounded-xl border-2 border-gray-200">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">🛡️</div>
+                            <h3 class="text-xl font-bold">Moderator Powers</h3>
+                        </div>
+                        <p class="mt-4 text-gray-600 feature-detail">Mods can manage the AI's behavior directly from Twitch chat, adding banned words or updating the AI's memory about a user.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brain & Control Section -->
+        <section id="brain" class="py-20 bg-white">
+            <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="section-title">The AI's Brain</h2>
+                    <p class="mt-4 section-subtitle">Three layers of memory make the AI feel like a real community member. This system ensures responses are always relevant and personalized.</p>
+                    <div class="mt-8 space-y-4">
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="font-bold text-lg accent-purple">Long-Term Memory</h3>
+                            <p class="text-gray-600">Remembers facts about regular chatters (e.g., "Loves Elden Ring," "Has a dog named Sparky"). Memos can be added by mods.</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="font-bold text-lg accent-purple">Mid-Term Memory</h3>
+                            <p class="text-gray-600">Understands the context of the current conversation in chat, even if not directly mentioned in the prompt.</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="font-bold text-lg accent-purple">Short-Term Memory</h3>
+                            <p class="text-gray-600">Remembers its direct back-and-forth with a single person to avoid repeating itself.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="section-title">Live Control Panel</h2>
+                    <p class="mt-4 section-subtitle">A simple app to control everything, designed for non-techie streamers. Start, stop, and configure triggers with ease.</p>
+                    <div class="mt-8 p-2 bg-gray-800 rounded-xl shadow-2xl">
+                        <div class="h-8 bg-gray-700 rounded-t-lg flex items-center px-4 space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div class="bg-gray-900 p-6 rounded-b-lg text-white">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg font-bold">HobbitTrash AI Control</h3>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                    <span class="text-sm text-green-400">LISTENING</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 space-y-4">
+                                <p class="text-sm text-gray-400">Response Triggers:</p>
+                                <div class="flex items-center justify-between bg-gray-800 p-3 rounded-lg">
+                                    <label for="mentions">Respond to @mentions</label>
+                                    <div class="w-12 h-6 flex items-center bg-green-500 rounded-full p-1"><div class="w-4 h-4 bg-white rounded-full shadow-md transform translate-x-6"></div></div>
+                                </div>
+                                <div class="flex items-center justify-between bg-gray-800 p-3 rounded-lg">
+                                    <label for="points">Channel Point Redeems</label>
+                                    <div class="w-12 h-6 flex items-center bg-gray-600 rounded-full p-1"><div class="w-4 h-4 bg-white rounded-full shadow-md"></div></div>
+                                </div>
+                                <div class="flex items-center justify-between bg-gray-800 p-3 rounded-lg">
+                                    <label for="donos">Donations / Cheers</label>
+                                    <div class="w-12 h-6 flex items-center bg-gray-600 rounded-full p-1"><div class="w-4 h-4 bg-white rounded-full shadow-md"></div></div>
+                                </div>
+                            </div>
+                            <button class="w-full mt-6 bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
+                                STOP AI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Moderator Powers Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title">Moderator Powers In Action</h2>
+                <p class="mt-4 section-subtitle max-w-2xl mx-auto">Your mods can help manage the AI directly from chat. Click the button to simulate a command.</p>
+                <div class="mt-12 max-w-2xl mx-auto bg-gray-800 rounded-lg p-6 text-left font-mono text-sm text-white shadow-lg">
+                    <div id="chat-window" class="space-y-3 h-48 overflow-y-auto">
+                        <!-- Chat lines will be injected here -->
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-600">
+                        <button id="simulate-command-btn" class="w-full bg-accent-purple text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                            Simulate Mod Command: !aicmd add_memo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-8 bg-gray-800 text-gray-400">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 HobbitTrash AI Project. A conceptual overview.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Feature card toggle
+            const featuresGrid = document.getElementById('features-grid');
+            if (featuresGrid) {
+                featuresGrid.addEventListener('click', (e) => {
+                    const card = e.target.closest('.feature-card');
+                    if (card) {
+                        // Close other active cards
+                        featuresGrid.querySelectorAll('.feature-card.active').forEach(activeCard => {
+                            if (activeCard !== card) {
+                                activeCard.classList.remove('active');
+                            }
+                        });
+                        card.classList.toggle('active');
+                    }
+                });
+            }
+
+            // Chat simulation
+            const chatWindow = document.getElementById('chat-window');
+            const simulateBtn = document.getElementById('simulate-command-btn');
+            if (chatWindow && simulateBtn) {
+                let isSimulating = false;
+                const chatSteps = [
+                    { user: 'ModUser', text: '!aicmd add_memo SomeChatter their dog is named Sparky', userColor: 'text-orange-400' },
+                    { user: 'HobbitAI_Bot', text: '✅ Memo added for SomeChatter.', userColor: 'text-green-400' }
+                ];
+
+                const addLine = (line, delay) => {
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            const lineEl = document.createElement('div');
+                            lineEl.className = 'chat-line-item';
+                            lineEl.innerHTML = `<span class="${line.userColor} font-bold">[${line.user}]</span>: ${line.text}`;
+                            chatWindow.appendChild(lineEl);
+                            setTimeout(() => lineEl.style.opacity = '1', 50);
+                            chatWindow.scrollTop = chatWindow.scrollHeight;
+                            resolve();
+                        }, delay);
+                    });
+                };
+
+                simulateBtn.addEventListener('click', async () => {
+                    if (isSimulating) return;
+                    isSimulating = true;
+                    simulateBtn.disabled = true;
+                    simulateBtn.classList.add('opacity-50');
+                    chatWindow.innerHTML = '';
+                    
+                    await addLine(chatSteps[0], 100);
+                    await addLine(chatSteps[1], 600);
+                    
+                    isSimulating = false;
+                    simulateBtn.disabled = false;
+                    simulateBtn.classList.remove('opacity-50');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
