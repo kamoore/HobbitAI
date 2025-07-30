@@ -47,7 +47,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        .feature-card:hover {
+        .feature-card:hover, .cost-card:hover {
             border-color: #8B5CF6;
         }
         .feature-card .feature-detail {
@@ -206,7 +206,7 @@
                 </div>
                 <div class="mt-16 flex flex-col lg:flex-row justify-center items-center gap-8">
                     <!-- ElevenLabs Card -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full w-full lg:w-1/3">
+                    <div class="cost-card bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full w-full lg:w-1/3 transition-all duration-300">
                         <div class="flex items-center gap-4">
                             <div class="text-3xl">🗣️</div>
                             <h3 class="text-xl font-bold dark:text-white">Voice Cloning</h3>
@@ -221,7 +221,7 @@
                     <!-- AI Brain Section Wrapper -->
                     <div class="flex flex-col md:flex-row items-center justify-center gap-8 w-full lg:w-2/3">
                         <!-- OpenAI Card -->
-                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full w-full">
+                        <div class="cost-card bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full w-full transition-all duration-300">
                             <div class="flex items-center gap-4">
                                 <div class="text-3xl">🧠</div>
                                 <h3 class="text-xl font-bold dark:text-white">AI Brain (OpenAI)</h3>
@@ -237,7 +237,7 @@
                         <div class="text-center font-bold text-gray-400 dark:text-gray-500 text-2xl my-4 lg:my-0">OR</div>
 
                         <!-- Google Gemini Card -->
-                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full w-full">
+                        <div class="cost-card bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full w-full transition-all duration-300">
                             <div class="flex items-center gap-4">
                                 <div class="text-3xl">💎</div>
                                 <h3 class="text-xl font-bold dark:text-white">AI Brain (Gemini)</h3>
@@ -340,7 +340,7 @@
             <p>&copy; 2025 HobbitTrash AI Project. A conceptual overview.</p>
         </div>
     </footer>
-  
-    <!-- All interactive scripts have been removed -->
+
+    <script src="/static/main.js" defer></script>
 </body>
 </html>

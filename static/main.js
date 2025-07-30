@@ -1,38 +1,4 @@
-// This single script now handles all interactivity for the page.
-// It runs after the DOM is fully loaded to prevent errors.
 document.addEventListener('DOMContentLoaded', () => {
-
-    // --- THEME TOGGLE LOGIC (Consolidated & Corrected) ---
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const darkIcon = document.getElementById('theme-toggle-dark-icon');
-    const lightIcon = document.getElementById('theme-toggle-light-icon');
-    const htmlEl = document.documentElement;
-
-    const setAndApplyTheme = (theme) => {
-        if (theme === 'light') {
-            htmlEl.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            darkIcon.classList.remove('hidden');
-            lightIcon.classList.add('hidden');
-        } else {
-            // Default to dark
-            htmlEl.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-            darkIcon.classList.add('hidden');
-            lightIcon.classList.remove('hidden');
-        }
-    };
-
-    themeToggleBtn.addEventListener('click', () => {
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        setAndApplyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
-
-    // Initial theme setup on page load
-    const initialTheme = localStorage.getItem('theme') || 'dark';
-    setAndApplyTheme(initialTheme);
-
-
     // --- FEATURE CARD TOGGLE ---
     const featuresGrid = document.getElementById('features-grid');
     if (featuresGrid) {
