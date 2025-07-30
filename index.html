@@ -87,7 +87,9 @@
                     <svg id="theme-toggle-dark-icon" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
-                    <svg id="theme-toggle-light-icon" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                    <svg id="theme-toggle-light-icon" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                 </button>
@@ -211,6 +213,54 @@
             </div>
         </section>
 
+        <!-- Estimated Costs Section -->
+        <section id="costs" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title dark:text-white">Estimated Monthly Costs</h2>
+                    <p class="mt-4 section-subtitle text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">This project uses external services with their own costs. Here's a breakdown of what you can expect to pay.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- ElevenLabs Card -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">🗣️</div>
+                            <h3 class="text-xl font-bold dark:text-white">Voice Cloning</h3>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">via ElevenLabs</p>
+                        <div class="mt-4 space-y-2">
+                            <p class="text-gray-700 dark:text-gray-300"><strong class="text-accent-purple">$5/mo:</strong> Starter plan with Instant Voice Cloning.</p>
+                            <p class="text-gray-700 dark:text-gray-300"><strong class="text-accent-purple">$22/mo:</strong> Creator plan with higher quality Professional Voice Cloning.</p>
+                        </div>
+                    </div>
+                    <!-- OpenAI Card -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">🧠</div>
+                            <h3 class="text-xl font-bold dark:text-white">AI Brain (OpenAI)</h3>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Pay-as-you-go (GPT-4.1)</p>
+                        <div class="mt-4 space-y-2">
+                            <p class="text-gray-700 dark:text-gray-300"><strong class="text-accent-purple">$0.20</strong> per 100k input tokens.</p>
+                            <p class="text-gray-700 dark:text-gray-300"><strong class="text-accent-purple">$0.80</strong> per 100k output tokens.</p>
+                        </div>
+                    </div>
+                    <!-- Google Gemini Card -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 h-full">
+                        <div class="flex items-center gap-4">
+                            <div class="text-3xl">💎</div>
+                            <h3 class="text-xl font-bold dark:text-white">AI Brain (Gemini)</h3>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Pay-as-you-go (2.5 Pro)</p>
+                        <div class="mt-4 space-y-2">
+                            <p class="text-gray-700 dark:text-gray-300"><strong class="text-accent-purple">$0.125</strong> per 100k input tokens.</p>
+                            <p class="text-gray-700 dark:text-gray-300"><strong class="text-accent-purple">$1.00</strong> per 100k output tokens.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Brain & Control Section -->
         <section id="brain" class="py-20 bg-white dark:bg-gray-950">
             <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -308,11 +358,13 @@
             // Function to update icon visibility based on current theme
             const updateIcons = () => {
                 if (document.documentElement.classList.contains('dark')) {
-                    darkIcon.classList.remove('hidden');
-                    lightIcon.classList.add('hidden');
-                } else {
+                    // If we are in dark mode, the toggle should show the sun (light icon)
                     darkIcon.classList.add('hidden');
                     lightIcon.classList.remove('hidden');
+                } else {
+                    // If we are in light mode, the toggle should show the moon (dark icon)
+                    darkIcon.classList.remove('hidden');
+                    lightIcon.classList.add('hidden');
                 }
             };
 
